@@ -1,255 +1,788 @@
 {
-  "info": {
-    "_postman_id": "lease-tool-collection-001",
-    "name": "LeaseTool API Collection",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Auth System",
-      "item": [
-        {
-          "name": "Signup",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": { "raw": "{{base_url}}/auth/signup/", "host": [ "{{base_url}}" ], "path": [ "auth", "signup" ] },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"confirm_password\": \"password123\"\n}"
-            }
-          },
-          "response": [
-            {
-              "code": 200,
-              "body": "{\n  \"message\": \"OTP sent to your email.\",\n  \"email\": \"john@example.com\"\n}"
-            }
-          ]
-        },
-        {
-          "name": "OTP Verify",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": { "raw": "{{base_url}}/auth/otp-verify/", "host": [ "{{base_url}}" ], "path": [ "auth", "otp-verify" ] },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"john@example.com\",\n  \"otp\": \"123456\"\n}"
-            }
-          },
-          "response": [
-            {
-              "code": 201,
-              "body": "{\n  \"message\": \"User registered successfully.\",\n  \"User_id\": 1\n}"
-            }
-          ]
-        },
-        {
-          "name": "Login",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": { "raw": "{{base_url}}/auth/login/", "host": [ "{{base_url}}" ], "path": [ "auth", "login" ] },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
-            }
-          },
-          "response": [
-            {
-              "code": 200,
-              "body": "{\n  \"message\": \"User found, login successful.\"\n}"
-            }
-          ]
-        },
-        {
-          "name": "Add Shop Detail",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": { "raw": "{{base_url}}/auth/shop/", "host": [ "{{base_url}}" ], "path": [ "auth", "shop" ] },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"user\": {{user_id}},\n  \"shop_name\": \"My Shop\",\n  \"address\": \"123 Main St\",\n  \"pincode\": \"123456\",\n  \"state\": \"StateName\",\n  \"phone\": \"9876543210\"\n}"
-            }
-          },
-          "response": [
-            {
-              "code": 201,
-              "body": "{\n  \"message\": \"Shop details added successfully\"\n}"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Lessee",
-      "item": [
-        {
-          "name": "Add Lessee Detail",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": { "raw": "{{base_url}}/lessee/", "host": [ "{{base_url}}" ], "path": [ "lessee", "" ] },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Alice\",\n  \"phone\": \"9998887777\",\n  \"email\": \"alice@example.com\",\n  \"address\": \"456 Side St\",\n  \"tool_code\": \"TOOL123\",\n  \"start_date\": \"2024-06-01\",\n  \"return_date\": \"2024-06-10\",\n  \"security_amount\": \"1000.00\",\n  \"id_document_type\": \"Aadhaar\",\n  \"id_document_number\": \"1234-5678-9012\",\n  \"price\": \"500.00\"\n}"
-            }
-          },
-          "response": [
-            {
-              "code": 201,
-              "body": "{\n  \"message\": \"Lessee details saved successfully.\",\n  \"Lessee_id\": 1,\n  \"Lessee_code\": 123456\n}"
-            }
-          ]
-        },
-        {
-          "name": "Update Lessee Detail",
-          "request": {
-            "method": "PUT",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": { "raw": "{{base_url}}/lessee/{{lessee_id}}/", "host": [ "{{base_url}}" ], "path": [ "lessee", "{{lessee_id}}" ] },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Alice Updated\"\n}"
-            }
-          },
-          "response": [
-            { "code": 200, "body": "{\n  \"message\": \"Lessee details updated successfully (PUT).\"\n}" }
-          ]
-        },
-        {
-          "name": "Get All Lessees",
-          "request": {
-            "method": "GET",
-            "url": { "raw": "{{base_url}}/lessee/", "host": [ "{{base_url}}" ], "path": [ "lessee", "" ] }
-          },
-          "response": [ { "code": 200, "body": "{\n  \"data\": [ ... ]\n}" } ]
-        },
-        {
-          "name": "Get Lessee By ID",
-          "request": {
-            "method": "GET",
-            "url": { "raw": "{{base_url}}/lessee/{{lessee_id}}/", "host": [ "{{base_url}}" ], "path": [ "lessee", "{{lessee_id}}" ] }
-          },
-          "response": [ { "code": 200, "body": "{\n  \"data\": { ... }\n}" } ]
-        },
-        {
-          "name": "Get Lessee By Tool Code",
-          "request": {
-            "method": "GET",
-            "url": { "raw": "{{base_url}}/lessee/tool/{{tool_code}}/", "host": [ "{{base_url}}" ], "path": [ "lessee", "tool", "{{tool_code}}" ] }
-          },
-          "response": [ { "code": 200, "body": "{ ... }" } ]
-        },
-        {
-          "name": "Get Due Today",
-          "request": {
-            "method": "GET",
-            "url": { "raw": "{{base_url}}/lessee/due-today/", "host": [ "{{base_url}}" ], "path": [ "lessee", "due-today" ] }
-          },
-          "response": [ { "code": 200, "body": "[ ... ]" } ]
-        },
-        {
-          "name": "Return Tool",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": { "raw": "{{base_url}}/lessee/return/", "host": [ "{{base_url}}" ], "path": [ "lessee", "return" ] },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"tool_code\": \"TOOL123\",\n  \"lessee_code\": 123456,\n  \"condition\": \"Good\"\n}"
-            }
-          },
-          "response": [ { "code": 200, "body": "{\n  \"message\": \"Tool returned successfully.\"\n}" } ]
-        }
-      ]
-    },
-    {
-      "name": "Tool",
-      "item": [
-        {
-          "name": "List Predefined Tools",
-          "request": {
-            "method": "GET",
-            "url": { "raw": "{{base_url}}/tool/predefined/", "host": [ "{{base_url}}" ], "path": [ "tool", "predefined" ] }
-          },
-          "response": [ { "code": 200, "body": "[ ... ]" } ]
-        },
-        {
-          "name": "Add Predefined Tool to User",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": { "raw": "{{base_url}}/tool/add-predefined/{{user_id}}/", "host": [ "{{base_url}}" ], "path": [ "tool", "add-predefined", "{{user_id}}" ] },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"tool_code\": [\"TOOL123\"],\n  \"quantity\": [5],\n  \"price\": [\"500.00\"]\n}"
-            }
-          },
-          "response": [ { "code": 201, "body": "{\n  \"message\": \"Tools processed\"\n}" } ]
-        },
-        {
-          "name": "List User Tools",
-          "request": {
-            "method": "GET",
-            "url": { "raw": "{{base_url}}/tool/list/{{user_id}}/", "host": [ "{{base_url}}" ], "path": [ "tool", "list", "{{user_id}}" ] }
-          },
-          "response": [ { "code": 200, "body": "[ ... ]" } ]
-        },
-        {
-          "name": "Add Custom Tool",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": { "raw": "{{base_url}}/tool/custom/{{user_id}}/", "host": [ "{{base_url}}" ], "path": [ "tool", "custom", "{{user_id}}" ] },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"tool_name\": \"Hammer\",\n  \"tool_code\": \"HAM123\",\n  \"quantity\": 10,\n  \"price\": \"100.00\",\n  \"price_type\": \"daily\"\n}"
-            }
-          },
-          "response": [ { "code": 201, "body": "{\n  \"message\": \"Tool(s) added successfully\"\n}" } ]
-        },
-        {
-          "name": "Check Tool Availability",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": { "raw": "{{base_url}}/tool/check-availability/{{user_id}}/", "host": [ "{{base_url}}" ], "path": [ "tool", "check-availability", "{{user_id}}" ] },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"tool_code\": \"HAM123\"\n}"
-            }
-          },
-          "response": [ { "code": 200, "body": "{\n  \"tool_code\": \"HAM123\",\n  \"available\": true,\n  \"message\": \"Tool is available.\",\n  \"remaining_tool\": 10\n}" } ]
-        }
-      ]
-    }
-  ],
-  "variable": [
-    { "key": "base_url", "value": "http://localhost:8000" },
-    { "key": "user_id", "value": "1" },
-    { "key": "lessee_id", "value": "1" },
-    { "key": "tool_code", "value": "TOOL123" }
-  ]
-} 
+	"info": {
+		"_postman_id": "c2e17ae8-fd13-4e4a-bcbe-a1b10f37b611",
+		"name": "LeaseTool API Collection Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46029484"
+	},
+	"item": [
+		{
+			"name": "Auth System",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\" : \"cool\",\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"confirm_password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/LeaseTool/signup/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"LeaseTool",
+								"signup",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Untitled Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\" : \"cool\",\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"confirm_password\": \"password123\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/LeaseTool/signup/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"LeaseTool",
+										"signup",
+										""
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"message\": \"OTP sent to your email.\",\n  \"email\": \"john@example.com\"\n}"
+						}
+					]
+				},
+				{
+					"name": "OTP Verify",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"john@example.com\",\n  \"otp\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/otp-verify",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"otp-verify"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Untitled Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"john@example.com\",\n  \"otp\": \"123456\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/otp-verify",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"otp-verify"
+									]
+								}
+							},
+							"code": 201,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"message\": \"User registered successfully.\",\n  \"User_id\": 1\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Untitled Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"message\": \"User found, login successful.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Shop Detail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": {{user_id}},\n  \"shop_name\": \"My Shop\",\n  \"address\": \"123 Main St\",\n  \"pincode\": \"123456\",\n  \"state\": \"StateName\",\n  \"phone\": \"9876543210\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/shop",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"shop"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lessee",
+			"item": [
+				{
+					"name": "Add Lessee Detail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Alice\",\n  \"phone\": \"9998887777\",\n  \"email\": \"alice@example.com\",\n  \"address\": \"456 Side St\",\n  \"tool_code\": \"TOOL123\",\n  \"start_date\": \"2024-06-01\",\n  \"return_date\": \"2024-06-10\",\n  \"security_amount\": \"1000.00\",\n  \"id_document_type\": \"Aadhaar\",\n  \"id_document_number\": \"1234-5678-9012\",\n  \"price\": \"500.00\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/lessee/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lessee",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Untitled Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Alice\",\n  \"phone\": \"9998887777\",\n  \"email\": \"alice@example.com\",\n  \"address\": \"456 Side St\",\n  \"tool_code\": \"TOOL123\",\n  \"start_date\": \"2024-06-01\",\n  \"return_date\": \"2024-06-10\",\n  \"security_amount\": \"1000.00\",\n  \"id_document_type\": \"Aadhaar\",\n  \"id_document_number\": \"1234-5678-9012\",\n  \"price\": \"500.00\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/lessee/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"lessee",
+										""
+									]
+								}
+							},
+							"code": 201,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"message\": \"Lessee details saved successfully.\",\n  \"Lessee_id\": 1,\n  \"Lessee_code\": 123456\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Lessee Detail",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Alice Updated\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/lessee/{{lessee_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lessee",
+								"{{lessee_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Untitled Response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Alice Updated\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/lessee/{{lessee_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"lessee",
+										"{{lessee_id}}"
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"message\": \"Lessee details updated successfully (PUT).\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Lessees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/lessee/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lessee",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Untitled Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/lessee/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"lessee",
+										""
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"data\": [ ... ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Lessee By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/lessee/{{lessee_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lessee",
+								"{{lessee_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Untitled Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/lessee/{{lessee_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"lessee",
+										"{{lessee_id}}"
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"data\": { ... }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Lessee By Tool Code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/lessee/tool/{{tool_code}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lessee",
+								"tool",
+								"{{tool_code}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Untitled Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/lessee/tool/{{tool_code}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"lessee",
+										"tool",
+										"{{tool_code}}"
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ ... }"
+						}
+					]
+				},
+				{
+					"name": "Get Due Today",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/lessee/due-today",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lessee",
+								"due-today"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Untitled Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/lessee/due-today",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"lessee",
+										"due-today"
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "[ ... ]"
+						}
+					]
+				},
+				{
+					"name": "Return Tool",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tool_code\": \"TOOL123\",\n  \"lessee_code\": 123456,\n  \"condition\": \"Good\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/lessee/return",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lessee",
+								"return"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Untitled Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"tool_code\": \"TOOL123\",\n  \"lessee_code\": 123456,\n  \"condition\": \"Good\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/lessee/return",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"lessee",
+										"return"
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"message\": \"Tool returned successfully.\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Tool",
+			"item": [
+				{
+					"name": "List User Tools",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tool/list/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tool",
+								"list",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List User with status available",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tool/list/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tool",
+								"list",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List User with status borrowed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tool/list/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tool",
+								"list",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tool",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tool_name\": \"Hammer Pro\",\n  \"quantity\": 12,\n  \"price\": 55.00\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/LessorKit/tools/update/HAM123/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"LessorKit",
+								"tools",
+								"update",
+								"HAM123",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tool",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/LessorKit/tools/delete/HAM123/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"LessorKit",
+								"tools",
+								"delete",
+								"HAM123",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tool borrowed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/LessorKit/tools/availability/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"LessorKit",
+								"tools",
+								"availability",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Custom Tool",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tool_name\": \"Hammer\",\n  \"tool_code\": \"HAM123\",\n  \"quantity\": 10,\n  \"price\": \"100.00\",\n  \"price_type\": \"daily\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/tool/custom/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tool",
+								"custom",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Tool Availability",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tool_code\": \"HAM123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/tool/check-availability/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tool",
+								"check-availability",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000"
+		},
+		{
+			"key": "user_id",
+			"value": "1"
+		},
+		{
+			"key": "lessee_id",
+			"value": "1"
+		},
+		{
+			"key": "tool_code",
+			"value": "TOOL123"
+		}
+	]
+}
