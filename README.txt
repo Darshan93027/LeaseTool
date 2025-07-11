@@ -2,7 +2,7 @@
 🔧 LeaseTool - Setup Guide
 ===============================
 
-LeaseTool is a Django-based Tool Rental & Lease Management System. It supports OTP-based email verification, tool tracking, overdue calculations, and a REST API layer.
+LeaseTool is a Django-based Tool Rental & Lease Management System. It supports OTP-based email verification, tool tracking, overdue calculations.
 
 This guide will help you:
 ✔ Setup virtual environment
