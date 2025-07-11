@@ -34,9 +34,9 @@ class LesseeDetail(models.Model):
     
     security_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True)  # Will be filled by logic in serializer
     security_amount_status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default='Not Returned')  # Will be filled by logic
+    max_length=20, choices=STATUS_CHOICES, default='Not Returned')  # Will be filled by logic
     tool_status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default='Ongoing')  # Will be filled by logic
+    max_length=20, choices=STATUS_CHOICES, default='Ongoing')  # Will be filled by logic
     is_overdue = models.BooleanField(default=False)  # Will be filled by logic
     overdue_date = models.DateTimeField(null=True, blank=True)  # Will be filled by logic
     overdue_days = models.IntegerField(null=True, blank=True)  # Will be filled by logic

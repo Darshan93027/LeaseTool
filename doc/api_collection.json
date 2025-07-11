@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "8b5b5c17-9ab0-437c-95bc-6fea3c05e148",
+		"name": "LeaseTool - Tool Rental Solution",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "46029484"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\" : \"User@darshan123\",\n  \"first_name\": \"Darshan\",\n  \"last_name\": \"Sharma\",\n  \"email\": \"Darshan@example.com\",\n  \"password\": \"password123\",\n  \"confirm_password\": \"password123\"\n}"
+						},
+						"url": "{{base_url}}/signup/"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"Darshan@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": "{{base_url}}/login/"
+					},
+					"response": []
+				},
+				{
+					"name": "OTP Verify",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"Darshan@example.com\",\n  \"otp\": \"123456\"\n}"
+						},
+						"url": "{{base_url}}/OTPVerify/"
+					},
+					"response": []
+				},
+				{
+					"name": "Shop Detail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": {{user_id}},\n  \"shop_name\": \"My Shop\",\n  \"address\": \"123 Main St\",\n  \"pincode\": \"123456\",\n  \"state\": \"StateName\",\n  \"phone\": \"9876543210\"\n}"
+						},
+						"url": "{{base_url}}/shop-detail/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tool",
+			"item": [
+				{
+					"name": "List User Tools",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/tools/{{user_id}}/all/"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Custom Tool",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tool_name\": \"Hammer\",\n  \"tool_code\": \"T1\",\n  \"quantity\": 10,\n  \"price\": \"100.00\",\n  \"price_type\": \"daily\"\n}"
+						},
+						"url": "{{base_url}}/tools/{{user_id}}/custom/"
+					},
+					"response": []
+				},
+				{
+					"name": "Check Tool Availability",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tool_code\": \"HAM123\"\n}"
+						},
+						"url": "{{base_url}}/tools/{{user_id}}/check-tool/"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tool",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tool_name\": \"Hammer Pro\",\n  \"quantity\": 12,\n  \"price\": 55.00\n}"
+						},
+						"url": "{{base_url}}/tools/{{user_id}}/update/{{tool_code}}/"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tool",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/tools/{{user_id}}/delete/{{tool_code}}/"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Tools borrowed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/tools/{{user_id}}/filter/?status=borrowed"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Tools available",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/tools/{{user_id}}/filter/?status=available"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrowed Tools",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/tools/{{user_id}}/borrowed/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lessee",
+			"item": [
+				{
+					"name": "Add Lessee Detail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Alice\",\n  \"phone\": \"9998887777\",\n  \"email\": \"alice@example.com\",\n  \"address\": \"456 Side St\",\n  \"tool_code\": \"TOOL123\",\n \"return_date\": \"2025-12-10\",\n  \"security_amount\": \"1000.00\",\n  \"id_document_type\": \"aadhaar\",\n  \"id_document_number\": \"1234-5678-9012\"\n }"
+						},
+						"url": "{{base_url}}/lessee/add/"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Lessee Detail",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Alice Updated\"\n}"
+						},
+						"url": "{{base_url}}/lessee/{{lessee_id}}/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Lessees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/lessee/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lessee By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/lessee/{{lessee_id}}/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lessee By Tool Code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/lessee/search-by-tool/{{tool_code}}/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Due Today",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/lessee/due-today/"
+					},
+					"response": []
+				},
+				{
+					"name": "Return Tool",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tool_code\": \"TOOL123\",\n  \"lessee_code\": 123456,\n  \"condition\": \"Good\"\n}"
+						},
+						"url": "{{base_url}}/lessee/return-tool/"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/LeaseTool"
+		},
+		{
+			"key": "user_id",
+			"value": "1"
+		},
+		{
+			"key": "tool_code",
+			"value": "T1"
+		},
+		{
+			"key": "lessee_id",
+			"value": "1"
+		}
+	]
+}

@@ -16,11 +16,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path ,include
+from django.http import HttpResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('LeaseTool/',include('auth_system.urls')),
     path('LeaseTool/',include('tool.urls')),
     path('LeaseTool/',include('lessee.urls')),
+    
 
 ]
+
+
+urlpatterns += [    path('', lambda request: HttpResponse("""
+        <html>
+        <head><title>Welcome to LeaseTool</title></head>
+        <body style="font-family: Arial; text-align: center; margin-top: 100px;">
+            <h1>🔧 LeaseTool</h1>
+            <h2>A complete end-to-end solution for lessors to track their tools efficiently.</h2>
+            <p>To get started, please <a href='/LeaseTool/signup/'>Signup</a>.</p>
+        </body>
+        </html>
+    """)),]

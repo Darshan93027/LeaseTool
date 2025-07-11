@@ -12,6 +12,8 @@ class Tool(models.Model):
     ]))
     image = models.ImageField(upload_to='tool_images/', null=True, blank=True)
     borrowed_quantity = models.PositiveIntegerField(default=0)  
+    is_deleted = models.BooleanField(default=False)
+    
     
     
     class Meta:
@@ -21,16 +23,5 @@ class Tool(models.Model):
     def __str__(self):
         return f"{self.tool_name} ({self.tool_code})"
     
-class PreDefineTools(models.Model):
-    tool_name = models.CharField(max_length=100)
-    tool_code = models.CharField(max_length=50, unique=True)
-    image = models.ImageField(upload_to='tool_images/', null=True, blank=True) 
-    
-    class Meta:
-        db_table = 'PreDefineTools'
-    
 
-    def __str__(self):
-        return f"{self.tool_name} ({self.tool_code})"
-    
 
