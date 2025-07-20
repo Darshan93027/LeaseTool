@@ -28,13 +28,72 @@ urlpatterns = [
 ]
 
 
-urlpatterns += [    path('', lambda request: HttpResponse("""
-        <html>
-        <head><title>Welcome to LeaseTool</title></head>
-        <body style="font-family: Arial; text-align: center; margin-top: 100px;">
-            <h1>🔧 LeaseTool</h1>
-            <h2>A complete end-to-end solution for lessors to track their tools efficiently.</h2>
-            <p>To get started, please <a href='/LeaseTool/signup/'>Signup</a>.</p>
+from django.http import HttpResponse
+from django.urls import path
+
+urlpatterns += [
+    path('', lambda request: HttpResponse("""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Welcome to LeaseTool</title>
+            <style>
+                body {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    text-align: center;
+                    margin: 0;
+                    padding: 0;
+                    background-color: #f0f4f8;
+                    color: #333;
+                }
+                .container {
+                    padding: 100px 20px;
+                }
+                h1 {
+                    font-size: 48px;
+                    color: #2c3e50;
+                }
+                h2 {
+                    font-size: 24px;
+                    color: #34495e;
+                    margin-bottom: 40px;
+                }
+                a {
+                    color: #007bff;
+                    text-decoration: none;
+                    font-weight: 500;
+                }
+                a:hover {
+                    text-decoration: underline;
+                }
+                .footer {
+                    margin-top: 60px;
+                    font-size: 14px;
+                    color: #777;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>🔧 LeaseTool</h1>
+                <h2>A complete end-to-end solution for lessors to track their tools efficiently.</h2>
+                
+                <p>To get started, please <a href='/LeaseTool/signup/'>Signup</a>.</p>
+
+                <div style="margin-top: 40px;"></div>
+
+                <p>Or, you can <a href='https://github.com/Darshan93027/LeaseTool.git' target="_blank">check out the GitHub repo</a>.</p>
+                
+                <div style="margin-top: 40px;"></div>
+
+                <p>Contact me at <a href='mailto:contactdarshan07@email.com'>contactdarshan07@email.com</a></p>
+
+                <div class="footer">
+                    Developed by Darshan Sharma
+                </div>
+            </div>
         </body>
         </html>
-    """)),]
+    """)),
+]
